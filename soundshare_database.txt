@@ -1,0 +1,297 @@
+  
+  Guys pls i have worked on the various tables for the soundshare system.
+  as discussed 
+   
+  It includes tables of the following.
+            
+          // Setting for the various timezone
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+Table structure for table `admin`
+--
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(24) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+
+-- //Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`) VALUES
+(1, 'admin', '');
+
+ 
+-- //Table structure for table `blocked`
+--
+
+CREATE TABLE IF NOT EXISTS `blocked` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `by` int(11) NOT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- //Table structure for table `categories`
+--
+
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+
+--
+-- //Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`) VALUES
+(21, 'Classical'),
+(22, 'Country'),
+(23, 'Electronic'),
+(25, 'Hip-Hop'),
+(26, 'Jazz'),
+(27, 'Metal'),
+(28, 'Pop'),
+(29, 'Reggae'),
+(30, 'World'),
+(31, 'Business'),
+(32, 'Comedy'),
+(33, 'Entertainment'),
+(34, 'Learning');
+
+-- --------------------------------------------------------
+
+ Table structure for table `comments`
+--
+
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `tid` int(11) NOT NULL,
+  `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+- Table structure for table `downloads`
+--
+
+CREATE TABLE IF NOT EXISTS `downloads` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `by` int(11) NOT NULL,
+  `track` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+ Table structure for table `likes`
+--
+
+CREATE TABLE IF NOT EXISTS `likes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `track` int(11) NOT NULL,
+  `by` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+ Table structure for table `notifications`
+--
+
+CREATE TABLE IF NOT EXISTS `notifications` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from` int(11) NOT NULL,
+  `to` int(11) NOT NULL DEFAULT '0',
+  `parent` int(11) NOT NULL DEFAULT '0',
+  `child` int(11) NOT NULL DEFAULT '0',
+  `type` int(11) NOT NULL,
+  `read` int(11) NOT NULL DEFAULT '0',
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+ Table structure for table `payments`
+--
+
+CREATE TABLE IF NOT EXISTS `payments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `by` int(11) NOT NULL,
+  `payer_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `payer_first_name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `payer_last_name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `payer_email` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `payer_country` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `txn_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `amount` decimal(10,0) NOT NULL,
+  `currency` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `type` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `valid` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+ Table structure for table `playlistentries`
+--
+
+CREATE TABLE IF NOT EXISTS `playlistentries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `playlist` int(11) NOT NULL,
+  `track` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+
+ Table structure for table `playlists`
+--
+
+CREATE TABLE IF NOT EXISTS `playlists` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `by` int(11) NOT NULL,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `public` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+ Table structure for table `relations`
+--
+
+CREATE TABLE IF NOT EXISTS `relations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `leader` int(11) NOT NULL,
+  `subscriber` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+ Table structure for table `reports`
+--
+CREATE TABLE IF NOT EXISTS `reports` (
+  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `track` varchar(11) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `parent` int(11) NOT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `type` int(11) NOT NULL,
+  `by` int(11) NOT NULL,
+  `state` int(11) NOT NULL DEFAULT '0',
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+- Table structure for table `tracks`
+--
+
+CREATE TABLE IF NOT EXISTS `tracks` (
+  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `uid` int(32) NOT NULL,
+  `title` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
+  `tag` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
+  `art` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
+  `buy` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `record` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `release` date NOT NULL,
+  `license` int(11) NOT NULL,
+  `size` int(11) NOT NULL,
+  `download` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `public` int(11) NOT NULL,
+  `likes` int(11) NOT NULL DEFAULT '0',
+  `downloads` int(11) NOT NULL DEFAULT '0',
+  `views` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unic
+
+
+    //These will consists of the tables for the various uses who will  register.and also be able to link to other various online sound cloud.
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `idu` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `first_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `country` varchar(64) NOT NULL DEFAULT '',
+  `city` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `website` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `description` varchar(160) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `date` date NOT NULL DEFAULT '0000-00-00',
+  `facebook` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `twitter` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `gplus` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `youtube` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `vimeo` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `tumblr` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `soundcloud` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `myspace` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `lastfm` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `image` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `private` int(11) NOT NULL DEFAULT '0',
+  `suspended` int(11) NOT NULL DEFAULT '0',
+  `salted` varchar(256) NOT NULL DEFAULT '',
+  `cover` varchar(128) NOT NULL,
+  `gender` tinyint(4) NOT NULL DEFAULT '0',
+  `online` int(11) NOT NULL DEFAULT '0',
+  `offline` tinyint(4) NOT NULL DEFAULT '0',
+  `ip` varchar(45) NOT NULL,
+  `notificationl` tinyint(4) NOT NULL,
+  `notificationc` tinyint(4) NOT NULL,
+  `notificationd` tinyint(4) NOT NULL,
+  `notificationf` tinyint(4) NOT NULL,
+  `email_comment` tinyint(4) NOT NULL,
+  `email_like` tinyint(4) NOT NULL,
+  `email_new_friend` tinyint(4) NOT NULL,
+  UNIQUE KEY `id` (`idu`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `views` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `by` int(11) NOT NULL,
+  `track` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+///////////////////These is the total Mysql database of the system///
+//////////////////  By Richmond Bentil////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+--
