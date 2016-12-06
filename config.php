@@ -1,5 +1,3 @@
-////////////////////Calling from the (include )//////////////////
-
 <?php
 error_reporting(0);
 
@@ -9,10 +7,10 @@ $CONF = $TMPL = array();
 $CONF['host'] = 'localhost';
 $CONF['user'] = 'root';
 $CONF['pass'] = '';
-$CONF['name'] = 'soundshare';
+$CONF['name'] = 'phpsound';
 
 // The Installation URL
-$CONF['url'] = 'http://localhost/Script';
+$CONF['url'] = 'http://localhost/SoundShare';
 
 // The Notifications e-mail
 $CONF['email'] = 'notifications@yourdomain.com';
